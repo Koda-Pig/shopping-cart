@@ -11,10 +11,10 @@ html {
     width: 12px;
     &-thumb {
       border-radius: 20px;
-      background-color: #848484;
+      background-color: $lightgray;
     }
     &-track {
-      background: #2d333b;
+      background: $darkgray;
     }
   }
 }
@@ -29,25 +29,28 @@ body {
 .grid {
   display: grid;
   grid-gap: 1rem;
+  margin: 0 auto;
+  max-width: 1600px;
   justify-content: center;
   @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 25%);
+    grid-template-columns: repeat(auto-fill, 300px);
   }
 }
 
 article {
   display: flex;
+  border-radius: 6px;
   flex-direction: column;
   background: lighten($eigengrau, 10%);
-  border-radius: 6px;
+  transition: filter 0.5s ease;
   img {
     padding: 1rem;
-    aspect-ratio: 1/1;
     background: white;
-    object-fit: contain;
     border-radius: 6px 6px 0 0;
+    aspect-ratio: 1/1;
+    object-fit: contain;
   }
-  div {
+  .item-content {
     padding: 1rem;
     &::before {
       content: '';
@@ -71,3 +74,11 @@ article {
     }
   }
 }
+
+.grid:hover article:not(:hover) {
+  filter: blur(1px) !important;
+}
+
+// notes
+// article = parent
+// img-wrapper = child

@@ -1,4 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+$eigengrau: #16161d;
+$darkgray: #2c3333;
+$murky: #2e4f4f;
+$teal: #0e8388;
+$lightgray: #cbe4de;
+
+html {
+  &::-webkit-scrollbar {
+    width: 12px;
+    &-thumb {
+      border-radius: 20px;
+      background-color: #848484;
+    }
+    &-track {
+      background: #2d333b;
+    }
+  }
+}
+
 body {
+  font-size: 16px;
   color: white;
-  background: #16161d; // Eigengrau
+  background: $eigengrau; // Eigengrau
+  font-family: Poppins;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+  justify-content: center;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 25%);
+  }
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  background: lighten($eigengrau, 10%);
+  border-radius: 6px;
+  img {
+    padding: 1rem;
+    aspect-ratio: 1/1;
+    background: white;
+    object-fit: contain;
+    border-radius: 6px 6px 0 0;
+  }
+  div {
+    padding: 1rem;
+    &::before {
+      content: '';
+      display: block;
+      height: 4px;
+      width: calc(100% + 2rem);
+      margin-left: -1rem;
+      margin-top: -12px;
+      background: white;
+    }
+    p {
+      word-break: break-word;
+    }
+  }
+  .cartBtn {
+    margin: auto 0 0;
+    color: $lightgray;
+    background: $murky;
+    &:hover {
+      background: $teal;
+    }
+  }
 }

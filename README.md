@@ -1,6 +1,8 @@
 # Following this tutorial:
 
-https://youtu.be/sfmL6bGbiN8?t=1706
+https://youtu.be/sfmL6bGbiN8?t=3601
+
+Got to here, but add to cart only works once. Something wrong with adding multiple items to cart.
 
 # Getting Started with Create React App
 

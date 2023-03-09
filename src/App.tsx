@@ -31,7 +31,7 @@ const App = () => {
   )
 
   const getTotalItems = (items: CartItemType[]) =>
-    items.reduce((ack: number, item) => ack + item.quantity, 0)
+    items.reduce((acumulator: number, item) => acumulator + item.quantity, 0)
 
   const handleAddToCart = (clickedItem: CartItemType) => {
     setCartItems((previous) => {
@@ -39,7 +39,7 @@ const App = () => {
       if (isItemInCart) {
         return previous.map((item) =>
           item.id === clickedItem.id
-            ? { ...item, quantity: item.quantity++ }
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       }
@@ -47,14 +47,30 @@ const App = () => {
     })
   }
 
-  const handleRemoveFromCart = () => null
+  const handleRemoveFromCart = (id: number) => {
+    setCartItems((previous) =>
+      previous.reduce((acumulator, item) => {
+        if (item.id === id) {
+          if (item.quantity === 1) return acumulator
+          return [...acumulator, { ...item, quantity: item.quantity - 1 }]
+        } else {
+          return [...acumulator, item]
+        }
+      }, [] as CartItemType[])
+    )
+  }
 
   if (isLoading) return <LinearProgress />
   if (error) return <h1>Something went wrong</h1>
 
   return (
     <main>
-      <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
+      <Drawer
+        anchor="right"
+        open={cartOpen}
+        onClose={() => setCartOpen(false)}
+        className="drawer"
+      >
         <Cart
           cartItems={cartItems}
           addToCart={handleAddToCart}
@@ -62,7 +78,11 @@ const App = () => {
         />
       </Drawer>
       <Button onClick={() => setCartOpen(true)} className="cart-btn">
-        <Badge badgeContent={getTotalItems(cartItems)} color="error">
+        <Badge
+          badgeContent={getTotalItems(cartItems)}
+          color="error"
+          overlap="circular"
+        >
           <AddShoppingCartIcon />
         </Badge>
       </Button>
